@@ -6,12 +6,22 @@
 /*   By: hasano <hasano@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:53:38 by hasano            #+#    #+#             */
-/*   Updated: 2024/02/24 16:46:41 by hasano           ###   ########.fr       */
+/*   Updated: 2024/02/24 17:47:40 by hasano           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 long long int	ft_power_pos(int base, int exp);
 int	ft_count_digits(long long int nb);
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\n')
+		i ++;
+	return (i);
+}
 
 int	ft_strncmp(char *s1, unsigned char *s2, unsigned int n)
 {
@@ -56,11 +66,12 @@ unsigned char	*itoa_three_digits(int nb, unsigned char *s)
 	return (&s[0]);
 }
 
-int	nb_to_eng(char *dict, char *dest, int *array, int array_size)
+int	nb_to_eng(char *dict, int *array, int array_size)
 {
 	int				i;
 	unsigned char	array_mem[3];
 	char			*p;
+	int				str_size;
 
 	i = 0;
 	while (i++ < array_size)
@@ -70,7 +81,8 @@ int	nb_to_eng(char *dict, char *dest, int *array, int array_size)
 		{
 			p = ft_strstr(dict, &array_mem[0]);
 			p += ft_count_digits(array_mem[0]) + 1;
-			while ()
+			str_size = ft_strlen(p);
+			write (1, p, str_size;)
 		}
 	}
 }
