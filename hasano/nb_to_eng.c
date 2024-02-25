@@ -3,16 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   nb_to_eng.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hasano <hasano@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kenkato <kenkato@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:53:38 by hasano            #+#    #+#             */
-/*   Updated: 2024/02/24 17:58:25 by hasano           ###   ########.fr       */
+/*   Updated: 2024/02/25 16:09:44 by kenkato          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int	ft_strlen(char *str);
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i ++;
+	return (i);
+}
 
 long long int	ft_power_pos(int base, int exp)
 {
