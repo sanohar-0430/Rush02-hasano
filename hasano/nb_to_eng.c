@@ -10,10 +10,50 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-long long int	ft_power_pos(int base, int exp);
-int	ft_count_digits(long long int nb);
+#include <unistd.h>
 
-int	ft_strlen(char *str)
+int	ft_strlen(char *str);
+
+long long int	ft_power_pos(int base, int exp)
+{
+	int			i;
+	long long int	n;
+
+	i = 1;
+	n = base;
+	if (exp < 0)
+		return (-1);
+	else if (exp == 0)
+		return (1);
+	else if (base < 0)
+		return (-1);
+	while (i < exp)
+	{
+		n *= base;
+		i++;
+	}
+	return (n);
+}
+
+int	ft_count_digits(long long int nb)
+{
+	int			i;
+	long long int	src_num;
+
+	i = 1;
+	src_num = nb;
+	if (src_num < 0)
+		src_num *= -1;
+	while (1)
+	{
+		if ((ft_power_pos(10, i)) > src_num)
+			return (i);
+		else
+			i ++;
+	}
+}
+
+int	ft_strlen_newline(char *str)
 {
 	int	i;
 
@@ -63,7 +103,7 @@ unsigned char	*ft_itoa(int nb)
 	n = ft_count_digits(nb);
 	while (i < n)
 	{
-		s[i] = ((nb / ft_power_pos(10, 2 - i)) % 10) + '0';
+		str[i] = ((nb / ft_power_pos(10, 2 - i)) % 10) + '0';
 		i ++;
 	}
 	return (str);
@@ -73,23 +113,33 @@ int	nb_to_eng(char *dict, int *array, int array_size)
 {
 	int				i;
 	int				j;
+	unsigned char	*p_array;
 	unsigned char	array_mem[3];
 	char			*p;
 	int				str_size;
 
 	i = 0;
+	p_array = &array_mem[0];
 	while (i++ < array_size)
 	{
-		itoa_three_digits(array[i], &array_mem[0]);
+		p_array = ft_itoa(array[i]);
 		j = 0;
 		while (j < 3)
 		if (array_mem[j] != 0)
 		{
-			p = ft_strstr(dict, &array_mem[0]);
-			p += ft_count_digits(array_mem[0]) + 1;
-			str_size = ft_strlen(p);
-			write (1, p, str_size);
+			p = ft_strstr(dict, &array_mem[j]);
+			p += 2;
+			str_size = ft_strlen_newline(p);
+			write(1, p, str_size);
 			p = ft_strstr(dict, ft_itoa(ft_power_pos(10, 2 - j)));
+			p += ft_count_digits(ft_power_pos(10, 2 - j)) + 1;
+			str_size = ft_strlen_newline(p);
+			write(1, p, str_size);
+			j ++;
 		}
+		p = ft_strstr(dict, ft_itoa(ft_power_pos(10, 3 * (array_size - i - 1))));
+		p += ft_count_digits(ft_power_pos(10, 3 * (array_size - i - 1))) + 1;
+		str_size = ft_strlen_newline(p);
+		write(1, p, str_size);
 	}
 }
